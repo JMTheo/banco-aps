@@ -23,7 +23,13 @@ public class GerenciaCliente {
             JOptionPane.showMessageDialog(null,texto, "Informações dos clientes", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    public boolean existCPF(Cliente cliente){ return true;}
+    public boolean existCPF(Cliente cliente){
+        for(Cliente clienteCad: this.listaCliente){
+            if(clienteCad.getCpf().equals(cliente.getCpf()))
+                return true;
+        }
+        return false;
+    }
 
     public void adicionar(ArrayList<Cliente> listaCliente){
         this.listaCliente = listaCliente;

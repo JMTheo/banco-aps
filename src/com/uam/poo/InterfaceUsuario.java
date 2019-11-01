@@ -1,6 +1,7 @@
 package com.uam.poo;
 
 import com.uam.poo.model.*;
+
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
 
@@ -31,9 +32,7 @@ public class InterfaceUsuario {
             Cliente c = new Cliente(nome,cpf,telefone);
             clientes.add(c);
 
-
             controleLoop = JOptionPane.showConfirmDialog(null,"Deseja continuar cadastrando clientes ?", "Cadastro de Clientes", 1);
-
             //Controle dos botoes do JOptionPane
             switch (controleLoop){
                 case 1:
@@ -53,14 +52,15 @@ public class InterfaceUsuario {
         GerenciaCliente gerenciaCliente = new GerenciaCliente();
         ArrayList<Cliente> c = this.testarCliente();
         gerenciaCliente.adicionar(c);
-        gerenciaCliente.listar();
     }
 
-    public void menu(){
+    public String menu(){
+        boolean controleLoop = true;
+        Object valorSelecionado = null;
         Object[] itensMenu  = {
                 "1 – Cadastrar Cliente",
                 "2 – Cadastrar Conta",
-                "3 – Listar Conta ",
+                "3 – Listar Conta",
                 "4 – Pesquisar Conta",
                 "5 – Depositar",
                 "6 – Debitar (Sacar)",
@@ -68,8 +68,14 @@ public class InterfaceUsuario {
                 "8 – Remover Conta",
                 "9 – Sair"
         };
-        Object valorSelecionado = JOptionPane.showInputDialog(null, "Escolha um item", "Menu do Banco", JOptionPane.INFORMATION_MESSAGE, null, itensMenu, itensMenu[0]);
+
+        while(valorSelecionado == null){
+            valorSelecionado= JOptionPane.showInputDialog(null, "Escolha um item", "Menu do Banco", JOptionPane.INFORMATION_MESSAGE, null, itensMenu, itensMenu[0]);
+        }
+        //Object valorSelecionado = JOptionPane.showOptionDialog(null, "Escolha um item", "Menu do Banco", 1, 1,null, itensMenu, itensMenu[0]);
+
         System.out.println(valorSelecionado.toString());
+        return valorSelecionado.toString();
     }
 
 }
