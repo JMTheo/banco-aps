@@ -3,6 +3,7 @@ package com.uam.poo;
 import com.uam.poo.model.*;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 /**
  * User: theo
@@ -19,11 +20,16 @@ public class FabricaConta {
     }
 
     private static ContaEspecial criarContaEspecial(){
+
         return new ContaEspecial();
     }
     private static Conta criarConta(){
         //TODO: Adicionar o resto da implementacao da conta simples
-        JOptionPane.showInputDialog(null,"Para qual cliente deseja cadastrar uma conta? ","Cadastro de conta", JOptionPane.QUESTION_MESSAGE);
+        int numeroConta;
+        Cliente c;
+
+        numeroConta = Integer.parseInt(JOptionPane.showInputDialog(null,"Para qual cliente deseja cadastrar uma conta? ","Cadastro de conta", JOptionPane.QUESTION_MESSAGE));
+        System.out.println(numeroConta);
         return new Conta();
     }
 }

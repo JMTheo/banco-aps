@@ -15,6 +15,9 @@ public class GerenciaCliente {
         return this.listaCliente;
     }
 
+    public GerenciaCliente() {
+        this.listaCliente = new ArrayList<>();
+    }
 
     public void listar() {
         //ForEach OO
@@ -23,15 +26,17 @@ public class GerenciaCliente {
             JOptionPane.showMessageDialog(null,texto, "Informações dos clientes", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    public boolean existCPF(Cliente cliente){
+    public boolean existCPF(String cpf){
+        boolean status = false;
         for(Cliente clienteCad: this.listaCliente){
-            if(clienteCad.getCpf().equals(cliente.getCpf()))
-                return true;
+            if(clienteCad.getCpf().equals(cpf))
+                status = true;
         }
-        return false;
+        return status;
     }
 
-    public void adicionar(ArrayList<Cliente> listaCliente){
-        this.listaCliente = listaCliente;
+    public void adicionar(Cliente cliente){
+        this.listaCliente.add(cliente);
     }
+
 }

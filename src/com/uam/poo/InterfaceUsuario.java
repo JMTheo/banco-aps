@@ -12,6 +12,11 @@ import java.util.ArrayList;
  * Time: 15:38
  */
 public class InterfaceUsuario {
+    private GerenciaCliente objGerenciCliente;
+
+    public void setObjGerenciCliente(GerenciaCliente obj){
+        this.objGerenciCliente = obj;
+    }
     public ArrayList<Cliente> testarCliente(){
         ArrayList<Cliente> clientes = new ArrayList<Cliente>();
         Cliente c = new Cliente("Joao M", "000.000.000-07", "11 95127-6174");
@@ -20,18 +25,20 @@ public class InterfaceUsuario {
         clientes.add(cc);
         return clientes;
     }
-    public ArrayList<Cliente> criarCliente(){
+    public GerenciaCliente criarCliente(){
         String nome, cpf, telefone;
         int controleLoop;
         boolean controle = true;
-        ArrayList<Cliente> clientes = new ArrayList<>();
         while(controle){
             nome = JOptionPane.showInputDialog(null,"Qual é o seu nome ? ","Cadastro de cliente", JOptionPane.QUESTION_MESSAGE);
-            cpf = JOptionPane.showInputDialog(null,"Qual é o seu cpf ?","Cadastro de cliente", JOptionPane.QUESTION_MESSAGE);
             telefone = JOptionPane.showInputDialog(null,"Qual é o seu telefone ?","Cadastro de cliente", JOptionPane.QUESTION_MESSAGE);
+            do {
+                cpf = JOptionPane.showInputDialog(null,"Qual é o seu cpf ?","Cadastro de cliente", JOptionPane.QUESTION_MESSAGE);
+                if(this.objGerenciCliente.existCPF(cpf))
+                    JOptionPane.showMessageDialog(null,"Digite um cpf valido (unico) !", "Cadastro de cliente", JOptionPane.WARNING_MESSAGE);
+            }while(this.objGerenciCliente.existCPF(cpf));
             Cliente c = new Cliente(nome,cpf,telefone);
-            clientes.add(c);
-
+            this.objGerenciCliente.adicionar(c);
             controleLoop = JOptionPane.showConfirmDialog(null,"Deseja continuar cadastrando clientes ?", "Cadastro de Clientes", 1);
             //Controle dos botoes do JOptionPane
             switch (controleLoop){
@@ -39,19 +46,14 @@ public class InterfaceUsuario {
                 case 2:
                 case -1:
                     controle = false;
+                    this.objGerenciCliente.listar();
                     break;
                 default:
                     controle = true;
                     break;
             }
         }
-        return clientes;
-    }
-
-    public void teste(){
-        GerenciaCliente gerenciaCliente = new GerenciaCliente();
-        ArrayList<Cliente> c = this.testarCliente();
-        gerenciaCliente.adicionar(c);
+        return this.objGerenciCliente;
     }
 
     public String menu(){

@@ -9,20 +9,31 @@ public class Main {
         String escolha;
         InterfaceUsuario interfaceUsuario = new InterfaceUsuario();
         FabricaConta fabricaConta = new FabricaConta();
+        GerenciaCliente gerenciaCliente = new GerenciaCliente();
+        Object[] tiposDeContas = {"Comum","Especial"};
+
         while (controle){
             escolha = interfaceUsuario.menu();
 
             switch (escolha){
                 case "1 – Cadastrar Cliente":
                     System.out.println("OPA");
-                    //interfaceUsuario.criarCliente();
-                    interfaceUsuario.teste();
+                    interfaceUsuario.setObjGerenciCliente(gerenciaCliente);
+                    gerenciaCliente = interfaceUsuario.criarCliente();
+
                     break;
                 case "2 – Cadastrar Conta":
-                    Object[] tiposDeContas = {"Comum","Especial"};
-                    int tipoConta = JOptionPane.showOptionDialog(null, "Escolha um tipo de conta", "Cadastro de conta", JOptionPane.DEFAULT_OPTION, 1,null, tiposDeContas, tiposDeContas[0]);
-                    System.out.println(tipoConta);
-                    Conta conta = FabricaConta.fabricarConta(tipoConta);
+                    String title = "Cadastro de conta";
+                    if(!(gerenciaCliente.getListaCliente().isEmpty()))
+                    {
+                        int tipoConta = JOptionPane.showOptionDialog(null, "Escolha um tipo de conta", title, JOptionPane.DEFAULT_OPTION, 1,null, tiposDeContas, tiposDeContas[0]);
+                        System.out.println(tipoConta);
+                        Conta conta = FabricaConta.fabricarConta(tipoConta);
+                    }else{
+                        JOptionPane.showMessageDialog(null,"Vc deve ter clientes cadastrados antes de cadastrar uma conta", title, JOptionPane.WARNING_MESSAGE);
+                    }
+
+
                     break;
                 case "3 – Listar Conta":
                     break;

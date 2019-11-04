@@ -7,6 +7,7 @@ package com.uam.poo.model;
  */
 public class ContaEspecial extends Conta {
     private double limite;
+
     public boolean debitar(){return true;}
     //TODO: Implementar o polimorfismo com o imprimir
 }
