@@ -1,8 +1,10 @@
 package com.uam.poo;
 
+import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
 import com.uam.poo.model.*;
 
 import javax.swing.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -25,11 +27,17 @@ public class FabricaConta {
     }
     private static Conta criarConta(){
         //TODO: Adicionar o resto da implementacao da conta simples
-        int numeroConta;
-        Cliente c;
+        String numeroCliente;
+        float saldo;
+        LocalDate dia =LocalDate.now();
+        Conta c = new Conta();
 
-        numeroConta = Integer.parseInt(JOptionPane.showInputDialog(null,"Para qual cliente deseja cadastrar uma conta? ","Cadastro de conta", JOptionPane.QUESTION_MESSAGE));
-        System.out.println(numeroConta);
-        return new Conta();
+        System.out.println(dia.toString());
+        numeroCliente = JOptionPane.showInputDialog(null,"Digite o cpf do cliente para cadastrar a conta? ","Cadastro de conta", JOptionPane.QUESTION_MESSAGE);
+        saldo = Float.parseFloat(JOptionPane.showInputDialog(null,"Digite o saldo inicial para abertura da conta", "Cadastro de conta", JOptionPane.QUESTION_MESSAGE));
+        c.setSaldo(saldo);
+        c.setDataAbertura(dia);
+        return c;
     }
+
 }

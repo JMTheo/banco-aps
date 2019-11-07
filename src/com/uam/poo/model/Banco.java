@@ -20,9 +20,9 @@ public class Banco {
     }
 
     public void adicionar(Conta c){
+       // c.setCliente(this.getConta(c.getNumero()));
         this.listaConta.add(c);
     }
-
 
     public String listar(){return this.toString();}
 
@@ -34,8 +34,23 @@ public class Banco {
         }
         return dadosConta;
     }
-    //public Conta getConta(int numero){}
-    public boolean remover(int numero){return true;}
+    public Conta getConta(int numero){
+        for (Conta contaCad :this.listaConta) {
+            if(numero == contaCad.getNumero())
+                return contaCad;
+        }
+        return null;
+    }
+    public boolean remover(int numero){
+        boolean status = false;
+        for (Conta contaCad :this.listaConta) {
+            if(numero == contaCad.getNumero()){
+                this.listaConta.remove(numero);
+                status = true;
+            }
+        }
+        return status;
+    }
 
     @Override
     public String toString() {
@@ -44,3 +59,4 @@ public class Banco {
                 '}';
     }
 }
+;
