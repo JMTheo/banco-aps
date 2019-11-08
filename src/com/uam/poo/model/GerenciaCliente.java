@@ -40,12 +40,4 @@ public class GerenciaCliente {
         this.listaCliente.add(cliente);
     }
 
-    public Cliente getCliente(String cpf){
-        for(Cliente clienteCad: this.listaCliente){
-            if(clienteCad.getCpf().equals(cpf))
-                return clienteCad;
-        }
-        return null;
-    }
-
 }
