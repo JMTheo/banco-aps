@@ -1,6 +1,5 @@
 package com.uam.poo.view;
 
-import com.uam.poo.controller.*;
 import com.uam.poo.model.GerenciaCliente;
 
 import javax.swing.*;
@@ -26,12 +25,6 @@ public class MenuView extends JFrame {
                 System.out.println(comboBox1.getSelectedIndex());
                 switch (comboBox1.getSelectedIndex()){
                     case 0:
-
-                        CadastroClienteView cadClienteV = new CadastroClienteView();
-                        GerenciaCliente gerenciaCliente = new GerenciaCliente();
-                        GerenciaClienteController gerenciaClienteController = new GerenciaClienteController(gerenciaCliente, cadClienteV);
-                        gerenciaClienteController.iniciarTela();
-
                         break;
                     case 8:
                         System.exit(0);
@@ -45,7 +38,6 @@ public class MenuView extends JFrame {
 
     public static void main(String[] args) {
         initTela();
-
     }
 
     private static void initTela(){
