@@ -39,19 +39,7 @@ public class InterfaceUsuario {
             }while(this.objGerenciCliente.existCPF(cpf));
             Cliente c = new Cliente(nome,cpf,telefone);
             this.objGerenciCliente.adicionar(c);
-            controleLoop = JOptionPane.showConfirmDialog(null,"Deseja continuar cadastrando clientes ?", "Cadastro de Clientes", 1);
-            //Controle dos botoes do JOptionPane
-            switch (controleLoop){
-                case 1:
-                case 2:
-                case -1:
-                    controle = false;
-                    this.objGerenciCliente.listar();
-                    break;
-                default:
-                    controle = true;
-                    break;
-            }
+
         }
         return this.objGerenciCliente;
     }

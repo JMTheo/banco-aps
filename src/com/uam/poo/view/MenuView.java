@@ -1,5 +1,8 @@
 package com.uam.poo.view;
 
+import com.uam.poo.controller.*;
+import com.uam.poo.model.GerenciaCliente;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,7 +13,7 @@ import java.awt.event.ActionListener;
  * Date: 07/11/2019
  * Time: 14:13
  */
-public class MenuView {
+public class MenuView extends JFrame {
     private JButton buttonMenu;
     private JPanel panelMenuPrincipal;
     private JLabel label1;
@@ -21,6 +24,19 @@ public class MenuView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println(comboBox1.getSelectedIndex());
+                switch (comboBox1.getSelectedIndex()){
+                    case 0:
+
+                        CadastroClienteView cadClienteV = new CadastroClienteView();
+                        GerenciaCliente gerenciaCliente = new GerenciaCliente();
+                        GerenciaClienteController gerenciaClienteController = new GerenciaClienteController(gerenciaCliente, cadClienteV);
+                        gerenciaClienteController.iniciarTela();
+
+                        break;
+                    case 8:
+                        System.exit(0);
+                        break;
+                }
             }
         });
     }
@@ -42,6 +58,8 @@ public class MenuView {
         tela.setLocationRelativeTo(null); //Deixando para iniciar o programa centralizado
         tela.setTitle("Menu do Banco");
         tela.setMinimumSize(new Dimension(400, 200)); //Definindo um tamanho inicial
-        tela.setVisible(true); // Deixando o panel Visivvel
+        tela.setVisible(true); // Deixando o panel Visivel
+
     }
+
 }

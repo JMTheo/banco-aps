@@ -11,12 +11,13 @@ import java.util.ArrayList;
 public class GerenciaCliente {
     private ArrayList<Cliente> listaCliente;
 
-    public ArrayList<Cliente> getListaCliente() {
-        return this.listaCliente;
-    }
 
     public GerenciaCliente() {
         this.listaCliente = new ArrayList<>();
+    }
+
+    public ArrayList<Cliente> getListaCliente() {
+        return this.listaCliente;
     }
 
     public void listar() {
