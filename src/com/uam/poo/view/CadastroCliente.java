@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
  * Date: 07/11/2019
  * Time: 14:55
  */
-public class CadastroClienteView extends JFrame {
+public class CadastroCliente extends JFrame {
     private JPanel panelCadCliente;
     private JLabel labelNome;
     private JTextField txtNome;
@@ -24,7 +24,7 @@ public class CadastroClienteView extends JFrame {
     private JButton btnSalvar;
     private JButton btnVoltar;
 
-    public CadastroClienteView(){
+    public CadastroCliente(){
         GerenciaCliente gerenciaCliente = GerenciaCliente.getInstance();
 
         add(panelCadCliente);

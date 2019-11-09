@@ -14,13 +14,13 @@ import java.awt.event.ActionListener;
  * Date: 07/11/2019
  * Time: 14:13
  */
-public class MenuView extends JFrame {
+public class Menu extends JFrame {
     private JButton buttonMenu;
     private JPanel panelMenuPrincipal;
     private JLabel label1;
     private JComboBox comboBox1;
 
-    public MenuView() {
+    public Menu() {
         GerenciaCliente gerenciaCliente = GerenciaCliente.getInstance();
         buttonMenu.addActionListener(new ActionListener() {
             @Override
@@ -28,8 +28,9 @@ public class MenuView extends JFrame {
                 System.out.println(comboBox1.getSelectedIndex());
                 switch (comboBox1.getSelectedIndex()){
                     case 0:
-                        CadastroClienteView cadastroClienteView = new CadastroClienteView();
-                        cadastroClienteView.setVisible(true);
+                        CadastroCliente cadastroCliente = new CadastroCliente();
+                        dispose();
+                        cadastroCliente.setVisible(true);
                         break;
                     case 1:
                         String title = "Cadastro de conta";
@@ -37,9 +38,11 @@ public class MenuView extends JFrame {
 
                         if(!(gerenciaCliente.getListaCliente().isEmpty()))
                         {
-                            int tipoConta = JOptionPane.showOptionDialog(panelMenuPrincipal, "Escolha um tipo de conta", title, JOptionPane.DEFAULT_OPTION, 1,null, tiposDeContas, tiposDeContas[0]);
-                            System.out.println(tipoConta);
-                            Conta conta = FabricaConta.fabricarConta(tipoConta);
+                            CadastroDeConta cadastroDeConta = new CadastroDeConta();
+                            cadastroDeConta.setVisible(true);
+                            //int tipoConta = JOptionPane.showOptionDialog(panelMenuPrincipal, "Escolha um tipo de conta", title, JOptionPane.DEFAULT_OPTION, 1,null, tiposDeContas, tiposDeContas[0]);
+                            //System.out.println(tipoConta);
+                            //Conta conta = FabricaConta.fabricarConta(tipoConta);
                         }else{
                             JOptionPane.showMessageDialog(panelMenuPrincipal,"Vc deve ter clientes cadastrados antes de cadastrar uma conta", title, JOptionPane.WARNING_MESSAGE);
                         }
@@ -60,7 +63,7 @@ public class MenuView extends JFrame {
 
     private static void initTela(){
         JFrame tela = new JFrame("Menu");
-        tela.setContentPane(new MenuView().panelMenuPrincipal);
+        tela.setContentPane(new Menu().panelMenuPrincipal);
         //Não permite o usuario fechar a tela pelo controle
         tela.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
