@@ -1,5 +1,7 @@
 package com.uam.poo.view;
 
+import com.uam.poo.FabricaConta;
+import com.uam.poo.model.Conta;
 import com.uam.poo.model.GerenciaCliente;
 
 import javax.swing.*;
@@ -19,12 +21,28 @@ public class MenuView extends JFrame {
     private JComboBox comboBox1;
 
     public MenuView() {
+        GerenciaCliente gerenciaCliente = GerenciaCliente.getInstance();
         buttonMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println(comboBox1.getSelectedIndex());
                 switch (comboBox1.getSelectedIndex()){
                     case 0:
+                        CadastroClienteView cadastroClienteView = new CadastroClienteView();
+                        cadastroClienteView.setVisible(true);
+                        break;
+                    case 1:
+                        String title = "Cadastro de conta";
+                        Object[] tiposDeContas = {"Comum","Especial"};
+
+                        if(!(gerenciaCliente.getListaCliente().isEmpty()))
+                        {
+                            int tipoConta = JOptionPane.showOptionDialog(panelMenuPrincipal, "Escolha um tipo de conta", title, JOptionPane.DEFAULT_OPTION, 1,null, tiposDeContas, tiposDeContas[0]);
+                            System.out.println(tipoConta);
+                            Conta conta = FabricaConta.fabricarConta(tipoConta);
+                        }else{
+                            JOptionPane.showMessageDialog(panelMenuPrincipal,"Vc deve ter clientes cadastrados antes de cadastrar uma conta", title, JOptionPane.WARNING_MESSAGE);
+                        }
                         break;
                     case 8:
                         System.exit(0);

@@ -1,5 +1,8 @@
 package com.uam.poo.view;
 
+import com.uam.poo.model.Cliente;
+import com.uam.poo.model.GerenciaCliente;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,6 +25,8 @@ public class CadastroClienteView extends JFrame {
     private JButton btnVoltar;
 
     public CadastroClienteView(){
+        GerenciaCliente gerenciaCliente = GerenciaCliente.getInstance();
+
         add(panelCadCliente);
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Cadastro de Clientes");
@@ -34,23 +39,42 @@ public class CadastroClienteView extends JFrame {
                 dispose();
             }
         });
+
         btnSalvar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int controleLoop = JOptionPane.showConfirmDialog(panelCadCliente,"Deseja continuar cadastrando clientes ?", "Cadastro de Clientes", 1);
-                //Controle dos botoes do JOptionPane
-                switch (controleLoop){
-                    case 1:
-                    case 2:
-                    case -1:
-                        dispose();
-                        //this.objGerenciCliente.listar();
-                        break;
-                    default:
-                        break;
+                String cpf;
+                cpf = txtCPF.getText();
+                if(gerenciaCliente.existCPF(cpf))
+                    JOptionPane.showMessageDialog(null,"CPF já cadastrado !", "Cadastro de cliente", JOptionPane.WARNING_MESSAGE);
+                else{
+                    gerenciaCliente.adicionar(cadCliente());
+                    txtCPF.setText(null);
+                    txtNome.setText(null);
+                    txtTelefone.setText(null);
+                    int controleLoop = JOptionPane.showConfirmDialog(panelCadCliente,"Deseja continuar cadastrando clientes ?", "Cadastro de Clientes", 1);
+                    //Controle dos botoes do JOptionPane
+                    switch (controleLoop){
+                        case 1:
+                        case 2:
+                        case -1:
+                            dispose();
+                            //gerenciaCliente.listar();
+
+                            //this.objGerenciCliente.listar();
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         });
     }
+
+    private Cliente cadCliente(){
+        return new Cliente(txtNome.getText(), txtCPF.getText(), txtTelefone.getText());
+    }
+
+
 }
 

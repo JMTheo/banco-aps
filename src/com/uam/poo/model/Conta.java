@@ -12,6 +12,13 @@ public class Conta {
     private Cliente cliente;
     private LocalDate dataAbertura;
     protected double saldo;
+    private static Conta instanciaUnica;
+
+    public static synchronized Conta getInstance() {
+        if(instanciaUnica == null)
+            instanciaUnica = new Conta();
+        return instanciaUnica;
+    }
 
     public void depositar(double quantia){
         this.saldo += quantia;
@@ -37,13 +44,7 @@ public class Conta {
         return this.toString();
     }
 
-    public Conta(){}
-    public Conta(int numero, Cliente cliente, LocalDate dataAbertura, double saldo) {
-        this.numero = numero;
-        this.cliente = cliente;
-        this.dataAbertura = dataAbertura;
-        this.saldo = saldo;
-    }
+    private Conta(){}
 
     @Override
     public String toString() {

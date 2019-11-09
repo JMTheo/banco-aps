@@ -10,9 +10,17 @@ import java.util.ArrayList;
  */
 public class GerenciaCliente {
     private ArrayList<Cliente> listaCliente;
+    private static GerenciaCliente instanciaUnica;
+
+    public static synchronized GerenciaCliente getInstance() {
+        if (instanciaUnica == null)
+            instanciaUnica = new GerenciaCliente();
+
+        return instanciaUnica;
+    }
 
 
-    public GerenciaCliente() {
+    private GerenciaCliente() {
         this.listaCliente = new ArrayList<>();
     }
 

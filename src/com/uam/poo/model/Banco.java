@@ -10,8 +10,15 @@ import java.util.ArrayList;
  */
 public class Banco {
     private ArrayList<Conta> listaConta;
+    private  static Banco instanciaUnica;
 
-    public Banco() {
+    public static synchronized Banco getInstance(){
+        if(instanciaUnica == null)
+            instanciaUnica = new Banco();
+        return instanciaUnica;
+    }
+
+    private Banco() {
         this.listaConta = new ArrayList<>();
     }
 
