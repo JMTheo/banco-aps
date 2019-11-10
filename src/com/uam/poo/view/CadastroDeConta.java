@@ -49,7 +49,6 @@ public class CadastroDeConta extends JFrame{
         for(Cliente c: gerenciaCliente.getListaCliente())
         {
             cmbCliente.addItem(c.getNome());
-
         }
 
         btnVoltar.addActionListener(new ActionListener() {
@@ -62,7 +61,6 @@ public class CadastroDeConta extends JFrame{
         radioBtnComum.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Opa Comum");
                 setNumeroRadio(0);
             }
         });
@@ -70,7 +68,6 @@ public class CadastroDeConta extends JFrame{
         radioBtnEspecial.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Opa especial");
                 setNumeroRadio(1);
             }
         });
@@ -88,10 +85,14 @@ public class CadastroDeConta extends JFrame{
                 c.setSaldo(Double.parseDouble(txtSaldo.getText()));
                 c.setNumero(numero);
                 c.setCliente(gerenciaCliente.getListaCliente().get(numero));
-                banco.adicionar(c);
-                System.out.println(banco.listar());
+                if(checarCadConta(c.getCliente()))
+                    JOptionPane.showMessageDialog(panelCadConta, "Cliente ja cadastrado", "Erro ao adicionar conta", JOptionPane.ERROR_MESSAGE);
+                else{
+                    banco.adicionar(c);
+                    System.out.println(banco.listar());
+                    dispose();
+                }
                 //TODO: Colocar um JOptionPane para perguntar se quqer continuar cadastrando conta
-                dispose();
             }
         });
     }
@@ -103,5 +104,19 @@ public class CadastroDeConta extends JFrame{
 
     public void setNumeroRadio(int numeroRadio) {
         this.numeroRadio = numeroRadio;
+    }
+
+    //TODO: Olhar melhor esse filtro depos
+    private boolean checarCadConta(Cliente c){
+        Banco banco = Banco.getInstance();
+        boolean status = false;
+        for(Conta conta: banco.getListaConta())
+        {
+            if (c.getCpf().equals(conta.getCliente().getCpf())) {
+                status = true;
+            }
+        }
+        return status;
+
     }
 }
