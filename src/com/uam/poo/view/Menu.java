@@ -47,6 +47,9 @@ public class Menu extends JFrame {
                             JOptionPane.showMessageDialog(panelMenuPrincipal,"Vc deve ter clientes cadastrados antes de cadastrar uma conta", title, JOptionPane.WARNING_MESSAGE);
                         }
                         break;
+                    case 7:
+                        RemoverConta removerConta = new RemoverConta();
+                        removerConta.setVisible(true);
                     case 8:
                         System.exit(0);
                         break;

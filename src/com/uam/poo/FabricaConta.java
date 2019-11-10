@@ -1,6 +1,7 @@
 package com.uam.poo;
 
 import com.uam.poo.model.*;
+import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -20,16 +21,14 @@ public class FabricaConta {
     }
 
     private static ContaEspecial criarContaEspecial(){
-
-        return new ContaEspecial();
+        ContaEspecial c = new ContaEspecial();
+        double limite = Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o valor limite da conta", "Cadastro de conta", JOptionPane.QUESTION_MESSAGE));
+        c.setLimite(limite);
+        return c;
     }
     private static Conta criarConta(){
         //TODO: Adicionar o resto da implementacao da conta simples
-        int numeroConta;
-        Cliente c;
 
-        numeroConta = Integer.parseInt(JOptionPane.showInputDialog(null,"Para qual cliente deseja cadastrar uma conta? ","Cadastro de conta", JOptionPane.QUESTION_MESSAGE));
-        System.out.println(numeroConta);
         return new Conta();
     }
 }

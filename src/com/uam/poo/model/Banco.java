@@ -30,7 +30,6 @@ public class Banco {
         this.listaConta.add(c);
     }
 
-
     public String listar(){return this.toString();}
 
     public String pesquisar(int numero){
