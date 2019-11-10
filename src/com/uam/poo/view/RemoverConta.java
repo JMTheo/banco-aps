@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
 //TODO: Tentar entendert pq essa porra ta desse jeito nao abrindo corretamente
 public class RemoverConta extends JFrame {
     private JLabel lblTitle;
-    private JComboBox cmbContas;
+    private JComboBox<String> cmbContas;
     private JButton btnVoltar;
     private JButton btnExcluir;
     private JPanel panelRemover;
@@ -29,8 +29,11 @@ public class RemoverConta extends JFrame {
         add(panelRemover);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Excluir Contas");
-        setMinimumSize(new Dimension(400, 440)); //Definindo um tamanho inicial
+        setMinimumSize(new Dimension(400, 200)); //Definindo um tamanho inicial
         setLocationRelativeTo(rootPane); //Deixando para iniciar o programa centralizado
+
+        for (Conta objConta : banco.getListaConta()) cmbContas.addItem(objConta.getCliente().getNome());
+
         btnVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -41,9 +44,8 @@ public class RemoverConta extends JFrame {
         btnExcluir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Conta c = banco.getListaConta().get(cmbContas.getSelectedIndex());
-                if (c.getSaldo() == 0){
-                    banco.remover(c.getNumero());
+                Conta c = banco.getConta(cmbContas.getSelectedIndex());
+                if (banco.remover(c.getNumero())){
                     JOptionPane.showMessageDialog(panelRemover, "Conta Excluida com sucesso !", "Confirmação de Exclusão", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else

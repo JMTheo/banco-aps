@@ -82,4 +82,11 @@ public class Conta {
     public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
+
+    public Conta(int numero, Cliente cliente, LocalDate dataAbertura, double saldo) {
+        this.numero = numero;
+        this.cliente = cliente;
+        this.dataAbertura = dataAbertura;
+        this.saldo = saldo;
+    }
 }

@@ -1,6 +1,6 @@
 package com.uam.poo.model;
 
-import java.lang.reflect.Array;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -40,8 +40,20 @@ public class Banco {
         }
         return dadosConta;
     }
-    //public Conta getConta(int numero){}
-    public boolean remover(int numero){return true;}
+
+    public Conta getConta(int numero){
+        return this.listaConta.get(numero);
+    }
+
+    public boolean remover(int numero){
+        boolean status = false;
+        if (this.listaConta.get(numero).getSaldo() == 0){
+            this.listaConta.remove(numero);
+            status = true;
+        }
+
+        return status;
+    }
 
     @Override
     public String toString() {
