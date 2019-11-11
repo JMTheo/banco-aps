@@ -26,7 +26,7 @@ public class Conta {
     }
     public boolean transferir(Conta destino, double quantia){
         boolean status = false;
-        if(quantia < this.saldo){
+        if(quantia <= this.saldo){
             this.saldo -= quantia;
             destino.saldo += quantia;
             status = true;

@@ -70,6 +70,8 @@ public class Menu extends JFrame {
                         break;
                     case 6:
                         //Transferir
+                        Transferencia transferencia = new Transferencia();
+                        transferencia.setVisible(true);
                         break;
                     case 7:
                         //Remover Conta
