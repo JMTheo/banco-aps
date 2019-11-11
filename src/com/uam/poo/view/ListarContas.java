@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
+import java.util.ArrayList;
 
 /**
  * User: theo
@@ -60,8 +61,17 @@ public class ListarContas extends JFrame {
         TableModel model = new DefaultTableModel(dados, colunas);
         table1 = new JTable(model);
 
+        //Adicionando listar de forma crescente/descrescente as colunas
         RowSorter<TableModel> sorter =  new TableRowSorter<TableModel>(model);
         table1.setRowSorter(sorter);
+
+        //Colocando para começar a listar a coluna de limite de forma descrescente,
+        //Assim as contas comuns irao aparecer primeirp
+        ArrayList<RowSorter.SortKey> sortKeys = new ArrayList<>();
+        int columnIndexToSort = 4;
+        sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.DESCENDING));
+
+        sorter.setSortKeys(sortKeys);
         //Deixando o conteudo das celulas centralizadas
         DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
         dtcr.setHorizontalAlignment(SwingConstants.CENTER);
