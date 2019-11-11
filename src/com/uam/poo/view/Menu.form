@@ -32,7 +32,7 @@
           <model>
             <item value="1 – Cadastrar Cliente"/>
             <item value="2 – Cadastrar Conta"/>
-            <item value="3 – Listar Conta"/>
+            <item value="3 – Listar Contas"/>
             <item value="4 – Pesquisar Conta"/>
             <item value="5 – Depositar"/>
             <item value="6 – Debitar (Sacar)"/>

@@ -31,13 +31,6 @@ public class ListarContas extends JFrame {
         setLocationRelativeTo(rootPane); //Deixando para iniciar o programa centralizado
 
         //TODO: Fazer funcionar essa caralha de JTable
-
-        btnVoltar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
         btnVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -59,12 +52,17 @@ public class ListarContas extends JFrame {
             dadosUsuario[1] = objContas.getCliente().getNome();
             dadosUsuario[2] = objContas.getDataAbertura().toString();
             dadosUsuario[3] = "" + objContas.getSaldo();
-            dadosUsuario[4] = objContas instanceof ContaEspecial ? "" + ((ContaEspecial) objContas).getLimite() : "Conta comum";
+            dadosUsuario[4] = objContas instanceof ContaEspecial ? "" + ((ContaEspecial) objContas).getLimite() : "Conta Comum";
 
             dados[i++] = dadosUsuario;
         }
 
-        table1 = new JTable(dados, colunas);
+        TableModel model = new DefaultTableModel(dados, colunas);
+        table1 = new JTable(model);
+
+        RowSorter<TableModel> sorter =  new TableRowSorter<TableModel>(model);
+        table1.setRowSorter(sorter);
+        //Deixando o conteudo das celulas centralizadas
         DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
         dtcr.setHorizontalAlignment(SwingConstants.CENTER);
         for (i = 0; i < colunas.length; i++){
