@@ -31,7 +31,6 @@ public class ListarContas extends JFrame {
         setMinimumSize(new Dimension(600, 200)); //Definindo um tamanho inicial
         setLocationRelativeTo(rootPane); //Deixando para iniciar o programa centralizado
 
-        //TODO: Fazer funcionar essa caralha de JTable
         btnVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -41,7 +40,6 @@ public class ListarContas extends JFrame {
     }
 
     private void createUIComponents() {
-        // TODO: place custom component creation code here
         Banco banco = Banco.getInstance();
 
         String[] colunas = {"Numero", "Nome", "Data de Abertura", "Saldo", "Limite"};

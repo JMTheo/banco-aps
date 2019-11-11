@@ -90,9 +90,8 @@ public class CadastroDeConta extends JFrame{
                 else{
                     banco.adicionar(c);
                     System.out.println(banco.listar());
-                    dispose();
+                    txtSaldo.setText("");
                 }
-                //TODO: Colocar um JOptionPane para perguntar se quqer continuar cadastrando conta
             }
         });
     }
@@ -106,7 +105,6 @@ public class CadastroDeConta extends JFrame{
         this.numeroRadio = numeroRadio;
     }
 
-    //TODO: Olhar melhor esse filtro depos
     private boolean checarCadConta(Cliente c){
         Banco banco = Banco.getInstance();
         boolean status = false;

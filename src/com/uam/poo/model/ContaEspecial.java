@@ -22,8 +22,6 @@ public class ContaEspecial extends Conta {
         }
         return status;
     }
-    //TODO: Implementar o polimorfismo com o imprimir
-
     public double getLimite() {
         return limite;
     }

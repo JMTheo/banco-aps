@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
  * Time: 02:47
  */
 
-//TODO: Tentar entendert pq essa porra ta desse jeito nao abrindo corretamente
 public class RemoverConta extends JFrame {
     private JLabel lblTitle;
     private JComboBox<String> cmbContas;

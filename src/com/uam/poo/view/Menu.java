@@ -23,13 +23,14 @@ public class Menu extends JFrame {
     public Menu() {
         GerenciaCliente gerenciaCliente = GerenciaCliente.getInstance();
 
+        //TODO: Removeer essa função de teste
         //Funcao para teste
         testeCadUser();
 
         buttonMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(comboBox1.getSelectedIndex());
+                //TODO: Colocar um filtro de acesso em todos os menus
                 switch (comboBox1.getSelectedIndex()){
                     case 0:
                         CadastroCliente cadastroCliente = new CadastroCliente();
@@ -49,7 +50,6 @@ public class Menu extends JFrame {
                         }
                         break;
                     case 2:
-                        //TODO: Arrumar o Listar!!!
                         ListarContas listarContas = new ListarContas();
                         listarContas.setVisible(true);
                         break;
@@ -80,6 +80,7 @@ public class Menu extends JFrame {
                         break;
                     case 8:
                         //Sair
+                        JOptionPane.showMessageDialog(panelMenuPrincipal, "Fechando o programa ...", "Fechando", JOptionPane.INFORMATION_MESSAGE);
                         System.exit(0);
                         break;
                 }

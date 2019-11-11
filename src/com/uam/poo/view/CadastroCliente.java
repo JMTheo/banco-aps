@@ -83,7 +83,6 @@ public class CadastroCliente extends JFrame {
         return F_Mascara;
     }
     private void createUIComponents() {
-        // TODO: place custom component creation code here
         fTxtTelefone = new JFormattedTextField(mascara("(##) #####-####"));
         fTxtCPF = new JFormattedTextField(mascara("###.###.###-##"));
     }

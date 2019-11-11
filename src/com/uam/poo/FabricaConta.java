@@ -11,7 +11,6 @@ import java.util.ArrayList;
  * Date: 01/11/2019
  * Time: 16:46
  */
-//TODO: Desenvolver a criacao da conta
 public class FabricaConta {
     public static Conta fabricarConta(int tipoConta){
         if(1 == tipoConta)
@@ -27,8 +26,6 @@ public class FabricaConta {
         return c;
     }
     private static Conta criarConta(){
-        //TODO: Adicionar o resto da implementacao da conta simples
-
         return new Conta();
     }
 }
