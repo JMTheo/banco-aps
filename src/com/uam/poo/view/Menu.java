@@ -1,10 +1,7 @@
 package com.uam.poo.view;
 
 import com.uam.poo.FabricaConta;
-import com.uam.poo.model.Banco;
-import com.uam.poo.model.Cliente;
-import com.uam.poo.model.Conta;
-import com.uam.poo.model.GerenciaCliente;
+import com.uam.poo.model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,6 +49,7 @@ public class Menu extends JFrame {
                         }
                         break;
                     case 2:
+                        //TODO: Arrumar o Listar!!!
                         ListarContas listarContas = new ListarContas();
                         listarContas.setVisible(true);
                         break;
@@ -67,6 +65,8 @@ public class Menu extends JFrame {
                         break;
                     case 5:
                         //Debitar
+                        Debitar debitar = new Debitar();
+                        debitar.setVisible(true);
                         break;
                     case 6:
                         //Transferir
@@ -119,13 +119,13 @@ public class Menu extends JFrame {
         objGerencia.adicionar(cliente2);
         objGerencia.adicionar(cliente3);
 
-        Conta c = new Conta(0,cliente, LocalDate.now(),0);
-        Conta c1 = new Conta(1,cliente2, LocalDate.now(),0);
+        Conta c = new ContaEspecial(1,cliente, LocalDate.now(),100, 200);
+        Conta c1 = new Conta(0,cliente2, LocalDate.now(),100);
         Conta c2 = new Conta(2,cliente3, LocalDate.now(),0);
 
         Banco banco = Banco.getInstance();
-        banco.adicionar(c);
         banco.adicionar(c1);
+        banco.adicionar(c);
         banco.adicionar(c2);
     }
 

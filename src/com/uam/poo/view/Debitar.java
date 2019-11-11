@@ -2,6 +2,7 @@ package com.uam.poo.view;
 
 import com.uam.poo.model.Banco;
 import com.uam.poo.model.Conta;
+import com.uam.poo.model.ContaEspecial;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,24 +12,24 @@ import java.awt.event.ActionListener;
 /**
  * User: theo
  * Date: 10/11/2019
- * Time: 18:04
+ * Time: 20:11
  */
-public class Depositar extends JFrame{
+public class Debitar extends JFrame {
     private JButton btnVoltar;
-    private JPanel panelDepositar;
     private JLabel lblTitle;
     private JLabel lblCli;
-    private JButton btnDepositar;
+    private JButton btnSacar;
     private JLabel lblQuantia;
-    private JTextField txtQuantia;
-    private JComboBox<Integer> cmbContas;
     private JLabel lblNomeCliente;
+    private JComboBox<Integer> cmbContas;
+    private JTextField txtQuantia;
     private JLabel lblNomeCli;
+    private JPanel panelSaque;
 
-    public Depositar() {
+    public Debitar() {
         Banco banco = Banco.getInstance();
 
-        add(panelDepositar);
+        add(panelSaque);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Depositar dinheiro");
         setMinimumSize(new Dimension(400, 200)); //Definindo um tamanho inicial
@@ -45,22 +46,35 @@ public class Depositar extends JFrame{
             }
         });
 
-        btnDepositar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                banco.getConta(cmbContas.getSelectedIndex()).depositar(Double.parseDouble(txtQuantia.getText()));
-                JOptionPane.showMessageDialog(panelDepositar, "Quantia adicionada com sucesso !");
-                dispose();
-            }
-        });
-
         cmbContas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 lblNomeCli.setText(banco.getConta(cmbContas.getSelectedIndex()).getCliente().getNome());
+            }
+        });
 
+        btnSacar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sacar();
             }
         });
     }
 
+    private void sacar(){
+        Banco banco = Banco.getInstance();
+        Conta c = banco.getConta(cmbContas.getSelectedIndex());
+
+        //Problema ao depositar em contaEspecial
+        if(txtQuantia.getText().equals(""))
+            JOptionPane.showMessageDialog(panelSaque, "O campo quantia deve ser preenchido", "Erro ao sacar", JOptionPane.ERROR_MESSAGE);
+        else{
+            if(c.debitar(Double.parseDouble(txtQuantia.getText())))
+                JOptionPane.showMessageDialog(panelSaque, "Quantia sacada com sucesso !");
+            else
+                JOptionPane.showMessageDialog(panelSaque, "Não foi possível sacar a quantia, verifique o saldo !");
+
+            dispose();
+        }
+    }
 }

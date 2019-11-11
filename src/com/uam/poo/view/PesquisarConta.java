@@ -57,12 +57,7 @@ public class PesquisarConta extends JFrame {
                 dispose();
             }
         });
-        btnPesquisarConta.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
         cmbCliente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
