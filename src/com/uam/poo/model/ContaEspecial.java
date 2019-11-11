@@ -15,7 +15,7 @@ public class ContaEspecial extends Conta {
 
     public boolean debitar(double quantia){
         boolean status = false;
-        if(quantia + this.limite < this.saldo){
+        if(this.limite+quantia < this.saldo){
             this.saldo -= quantia;
             status = true;
             JOptionPane.showMessageDialog(null,"CONTA ESPECIAL");

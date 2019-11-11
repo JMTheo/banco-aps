@@ -2,11 +2,10 @@ package com.uam.poo.view;
 
 import com.uam.poo.model.Banco;
 import com.uam.poo.model.Conta;
+import com.uam.poo.model.ContaEspecial;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
+import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,16 +23,34 @@ public class ListarContas extends JFrame {
     private JTable table1;
 
     public ListarContas() {
-        Banco banco = Banco.getInstance();
 
         add(panelListarContas);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Contas");
-        setMinimumSize(new Dimension(400, 200)); //Definindo um tamanho inicial
+        setMinimumSize(new Dimension(600, 200)); //Definindo um tamanho inicial
         setLocationRelativeTo(rootPane); //Deixando para iniciar o programa centralizado
 
         //TODO: Fazer funcionar essa caralha de JTable
-        String[] colunas = {"Numero", "Nome", "Data de Abertura", "Saldo"};
+
+        btnVoltar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        btnVoltar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        Banco banco = Banco.getInstance();
+
+        String[] colunas = {"Numero", "Nome", "Data de Abertura", "Saldo", "Limite"};
         String[][] dados = new String[banco.getListaConta().size()][colunas.length];
         int i = 0;
         for(Conta objContas: banco.getListaConta()){
@@ -42,14 +59,16 @@ public class ListarContas extends JFrame {
             dadosUsuario[1] = objContas.getCliente().getNome();
             dadosUsuario[2] = objContas.getDataAbertura().toString();
             dadosUsuario[3] = "" + objContas.getSaldo();
+            dadosUsuario[4] = objContas instanceof ContaEspecial ? "" + ((ContaEspecial) objContas).getLimite() : "Conta comum";
 
             dados[i++] = dadosUsuario;
         }
-        btnVoltar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
+        table1 = new JTable(dados, colunas);
+        DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+        dtcr.setHorizontalAlignment(SwingConstants.CENTER);
+        for (i = 0; i < colunas.length; i++){
+            table1.getColumn(colunas[i]).setCellRenderer(dtcr);
+        }
     }
 }

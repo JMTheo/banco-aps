@@ -4,6 +4,7 @@ import com.uam.poo.model.Cliente;
 import com.uam.poo.model.GerenciaCliente;
 
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,40 +19,34 @@ public class CadastroCliente extends JFrame {
     private JLabel labelNome;
     private JTextField txtNome;
     private JLabel labelCPF;
-    private JTextField txtCPF;
     private JLabel labelTelefone;
-    private JTextField txtTelefone;
     private JButton btnSalvar;
-    private JButton btnVoltar;
+
+    private JFormattedTextField fTxtTelefone;
+    private JFormattedTextField fTxtCPF;
 
     public CadastroCliente(){
         GerenciaCliente gerenciaCliente = GerenciaCliente.getInstance();
 
         add(panelCadCliente);
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Clientes");
         setMinimumSize(new Dimension(400, 200)); //Definindo um tamanho inicial
         setLocationRelativeTo(rootPane); //Deixando para iniciar o programa centralizado
 
-        btnVoltar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
 
         btnSalvar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String cpf;
-                cpf = txtCPF.getText();
+                cpf = fTxtCPF.getText();
                 if(gerenciaCliente.existCPF(cpf))
                     JOptionPane.showMessageDialog(null,"CPF já cadastrado !", "Cadastro de cliente", JOptionPane.WARNING_MESSAGE);
                 else{
                     gerenciaCliente.adicionar(cadCliente());
-                    txtCPF.setText(null);
+                    fTxtCPF.setText(null);
                     txtNome.setText(null);
-                    txtTelefone.setText(null);
+                    fTxtTelefone.setText(null);
                     int controleLoop = JOptionPane.showConfirmDialog(panelCadCliente,"Deseja continuar cadastrando clientes ?", "Cadastro de Clientes", 1);
                     //Controle dos botoes do JOptionPane
                     switch (controleLoop){
@@ -72,9 +67,25 @@ public class CadastroCliente extends JFrame {
     }
 
     private Cliente cadCliente(){
-        return new Cliente(txtNome.getText(), txtCPF.getText(), txtTelefone.getText());
+        return new Cliente(txtNome.getText(), fTxtCPF.getText(), fTxtTelefone.getText());
     }
 
+    public MaskFormatter mascara(String Mascara){
 
+        MaskFormatter F_Mascara = new MaskFormatter();
+        try{
+            F_Mascara.setMask(Mascara); //Atribui a mascara
+            F_Mascara.setPlaceholderCharacter(' '); //Caracter para preencimento
+        }
+        catch (Exception excecao) {
+            excecao.printStackTrace();
+        }
+        return F_Mascara;
+    }
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        fTxtTelefone = new JFormattedTextField(mascara("(##) #####-####"));
+        fTxtCPF = new JFormattedTextField(mascara("###.###.###-##"));
+    }
 }
 
