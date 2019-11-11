@@ -1,5 +1,6 @@
 package com.uam.poo.view;
 
+import com.uam.poo.MaskFactory;
 import com.uam.poo.model.Banco;
 import com.uam.poo.model.Conta;
 
@@ -19,7 +20,7 @@ public class Transferencia extends JFrame {
     private JLabel lblNomeDest;
     private JComboBox<Integer> cmbContaOrig;
     private JLabel lblNomeOrig;
-    private JTextField txtQuantia;
+    private JTextField fTxtQuantia;
     private JButton btnVoltar;
     private JButton btnTransferir;
 
@@ -53,7 +54,11 @@ public class Transferencia extends JFrame {
         btnTransferir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                transferencia();
+                if(fTxtQuantia.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(panelTransferencia,"Campo quantia não pode ser vazio");
+                }else{
+                    transferencia();
+                }
             }
         });
 
@@ -77,13 +82,21 @@ public class Transferencia extends JFrame {
         Banco banco = Banco.getInstance();
         Conta cOrig = banco.getConta(cmbContaOrig.getSelectedIndex());
         Conta cDest = banco.getConta(cmbContaDest.getSelectedIndex());
-        double quantia = Double.parseDouble(txtQuantia.getText());
 
-        if(cOrig.transferir(cDest, quantia)){
+        String valor = fTxtQuantia.getText();
+        double saldo = Double.parseDouble(valor.replace(',','.'));
+
+        if(cOrig.transferir(cDest, saldo)){
             JOptionPane.showMessageDialog(panelTransferencia, "Dinheiro transferido com sucesso", "Sucesso ao realizar a transação", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         }else{
             JOptionPane.showMessageDialog(panelTransferencia, "Saldo insuficiente para realizar a transferencia", "Erro ao realizar a transação", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        fTxtQuantia = new JFormattedTextField(MaskFactory.mascara("####,##"));
+        fTxtQuantia.setHorizontalAlignment(JFormattedTextField.RIGHT);
     }
 }

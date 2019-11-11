@@ -43,29 +43,41 @@ public class CadastroCliente extends JFrame {
                 if(gerenciaCliente.existCPF(cpf))
                     JOptionPane.showMessageDialog(null,"CPF já cadastrado !", "Cadastro de cliente", JOptionPane.WARNING_MESSAGE);
                 else{
-                    gerenciaCliente.adicionar(cadCliente());
-                    fTxtCPF.setText(null);
-                    txtNome.setText(null);
-                    fTxtTelefone.setText(null);
-                    int controleLoop = JOptionPane.showConfirmDialog(panelCadCliente,"Deseja continuar cadastrando clientes ?", "Cadastro de Clientes", 1);
-                    //Controle dos botoes do JOptionPane
-                    switch (controleLoop){
-                        case 1:
-                        case 2:
-                        case -1:
-                            dispose();
-                            //gerenciaCliente.listar();
+                    if(checarCampos()){
+                        JOptionPane.showMessageDialog(panelCadCliente,"Os campos Nome e CPF precisam ser preenchidos !", "Erro ao realizar o cadastro", JOptionPane.ERROR_MESSAGE);
+                    }else{
+                        gerenciaCliente.adicionar(cadCliente());
+                        fTxtCPF.setText(null);
+                        txtNome.setText(null);
+                        fTxtTelefone.setText(null);
+                        int controleLoop = JOptionPane.showConfirmDialog(panelCadCliente,"Deseja continuar cadastrando clientes ?", "Cadastro de Clientes", 1);
+                        //Controle dos botoes do JOptionPane
+                        switch (controleLoop){
+                            case 1:
+                            case 2:
+                            case -1:
+                                dispose();
+                                //gerenciaCliente.listar();
 
-                            //this.objGerenciCliente.listar();
-                            break;
-                        default:
-                            break;
+                                //this.objGerenciCliente.listar();
+                                break;
+                            default:
+                                break;
+                        }
                     }
+
                 }
             }
         });
     }
 
+    private boolean checarCampos(){
+        boolean status = false;
+        if(txtNome.getText().isEmpty() || fTxtCPF.getValue() == "")
+            status = true;
+
+        return status;
+    }
     private Cliente cadCliente(){
         return new Cliente(txtNome.getText(), fTxtCPF.getText(), fTxtTelefone.getText());
     }

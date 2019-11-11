@@ -1,7 +1,7 @@
 package com.uam.poo.view;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 import com.uam.poo.FabricaConta;
+import com.uam.poo.MaskFactory;
 import com.uam.poo.model.*;
 
 import javax.swing.*;
@@ -27,7 +27,7 @@ public class CadastroDeConta extends JFrame{
     private JLabel lblTipoConta;
     private JRadioButton radioBtnEspecial;
     private JLabel lblSaldo;
-    private JTextField txtSaldo;
+    private JTextField fTxtSaldo;
 
     private int numeroRadio;
 
@@ -80,17 +80,20 @@ public class CadastroDeConta extends JFrame{
 
                 int numero = cmbCliente.getSelectedIndex();
 
+                String valor = fTxtSaldo.getText();
+                double saldo = Double.parseDouble(valor.replace(',','.'));
+
                 Conta c = FabricaConta.fabricarConta(getNumeroRadio());
                 c.setDataAbertura(LocalDate.now());
-                c.setSaldo(Double.parseDouble(txtSaldo.getText()));
+                c.setSaldo(saldo);
                 c.setNumero(numero);
                 c.setCliente(gerenciaCliente.getListaCliente().get(numero));
                 if(checarCadConta(c.getCliente()))
                     JOptionPane.showMessageDialog(panelCadConta, "Cliente ja cadastrado", "Erro ao adicionar conta", JOptionPane.ERROR_MESSAGE);
                 else{
                     banco.adicionar(c);
-                    System.out.println(banco.listar());
-                    txtSaldo.setText("");
+                    JOptionPane.showMessageDialog(panelCadConta, "Conta cadastrada com sucesso", "Sucesso ao realizar o cadastro", JOptionPane.INFORMATION_MESSAGE);
+                    fTxtSaldo.setText("");
                 }
             }
         });
@@ -112,9 +115,16 @@ public class CadastroDeConta extends JFrame{
         {
             if (c.getCpf().equals(conta.getCliente().getCpf())) {
                 status = true;
+                break;
             }
         }
         return status;
 
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        fTxtSaldo = new JFormattedTextField(MaskFactory.mascara("####,##"));
+        fTxtSaldo.setHorizontalAlignment(JFormattedTextField.CENTER);
     }
 }

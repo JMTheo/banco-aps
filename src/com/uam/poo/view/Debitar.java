@@ -1,8 +1,8 @@
 package com.uam.poo.view;
 
+import com.uam.poo.MaskFactory;
 import com.uam.poo.model.Banco;
 import com.uam.poo.model.Conta;
-import com.uam.poo.model.ContaEspecial;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +22,7 @@ public class Debitar extends JFrame {
     private JLabel lblQuantia;
     private JLabel lblNomeCliente;
     private JComboBox<Integer> cmbContas;
-    private JTextField txtQuantia;
+    private JTextField fTxtQuantia;
     private JLabel lblNomeCli;
     private JPanel panelSaque;
 
@@ -56,9 +56,20 @@ public class Debitar extends JFrame {
         btnSacar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sacar();
+                if(checarCampo())
+                    JOptionPane.showMessageDialog(panelSaque, "O campo quantia precisa ser preenchido", "Erro ao tentar sacar", JOptionPane.ERROR_MESSAGE);
+                else
+                    sacar();
             }
         });
+    }
+
+    private boolean checarCampo(){
+        boolean status = false;
+        if(fTxtQuantia.getText().isEmpty())
+            status = true;
+
+        return status;
     }
 
     private void sacar(){
@@ -66,15 +77,24 @@ public class Debitar extends JFrame {
         Conta c = banco.getConta(cmbContas.getSelectedIndex());
 
         //Problema ao depositar em contaEspecial
-        if(txtQuantia.getText().equals(""))
+        if(fTxtQuantia.getText().equals(""))
             JOptionPane.showMessageDialog(panelSaque, "O campo quantia deve ser preenchido", "Erro ao sacar", JOptionPane.ERROR_MESSAGE);
         else{
-            if(c.debitar(Double.parseDouble(txtQuantia.getText())))
+            String valor = fTxtQuantia.getText();
+            double saldo = Double.parseDouble(valor.replace(',','.'));
+
+            if(c.debitar(saldo))
                 JOptionPane.showMessageDialog(panelSaque, "Quantia sacada com sucesso !");
             else
                 JOptionPane.showMessageDialog(panelSaque, "Não foi possível sacar a quantia, verifique o saldo !");
 
             dispose();
         }
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        fTxtQuantia = new JFormattedTextField(MaskFactory.mascara("####,##"));
+        fTxtQuantia.setHorizontalAlignment(JFormattedTextField.CENTER);
     }
 }
