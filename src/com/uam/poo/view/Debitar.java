@@ -3,6 +3,7 @@ package com.uam.poo.view;
 import com.uam.poo.MaskFactory;
 import com.uam.poo.model.Banco;
 import com.uam.poo.model.Conta;
+import com.uam.poo.model.ContaEspecial;
 
 import javax.swing.*;
 import java.awt.*;

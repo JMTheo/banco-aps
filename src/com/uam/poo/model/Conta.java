@@ -18,7 +18,7 @@ public class Conta {
     }
     public boolean debitar(double quantia){
         boolean status = false;
-        if(quantia < this.saldo){
+        if(quantia <= this.saldo){
             this.saldo -= quantia;
             status = true;
         }

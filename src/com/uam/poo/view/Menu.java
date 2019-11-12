@@ -23,14 +23,11 @@ public class Menu extends JFrame {
     public Menu() {
         GerenciaCliente gerenciaCliente = GerenciaCliente.getInstance();
 
-        //TODO: Removeer essa função de teste
-        //Funcao para teste
-        testeCadUser();
-
         buttonMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO: Colocar um filtro de acesso em todos os menus
+                String title = "Erro ao entrar no menu";
                 switch (comboBox1.getSelectedIndex()){
                     case 0:
                         CadastroCliente cadastroCliente = new CadastroCliente();
@@ -38,45 +35,67 @@ public class Menu extends JFrame {
                         cadastroCliente.setVisible(true);
                         break;
                     case 1:
-                        String title = "Cadastro de conta";
-                        Object[] tiposDeContas = {"Comum","Especial"};
-
-                        if(checarCadConta())
+                        if(checarCadUser())
                         {
                             CadastroDeConta cadastroDeConta = new CadastroDeConta();
                             cadastroDeConta.setVisible(true);
                         }else{
-                            JOptionPane.showMessageDialog(panelMenuPrincipal,"Vc deve ter clientes cadastrados antes de cadastrar uma conta", title, JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(panelMenuPrincipal,"Você deve ter clientes cadastrados antes de cadastrar uma conta", title, JOptionPane.WARNING_MESSAGE);
                         }
                         break;
                     case 2:
-                        ListarContas listarContas = new ListarContas();
-                        listarContas.setVisible(true);
+                        if(checarCadConta()){
+                            ListarContas listarContas = new ListarContas();
+                            listarContas.setVisible(true);
+                        }else{
+                            JOptionPane.showMessageDialog(panelMenuPrincipal,"Você deve ter uma conta cadastrada", title, JOptionPane.WARNING_MESSAGE);
+                        }
                         break;
                     case 3:
                         //Pesquisar Conta
-                        PesquisarConta pesquisarConta = new PesquisarConta();
-                        pesquisarConta.setVisible(true);
+                        if(checarCadConta()){
+                            PesquisarConta pesquisarConta = new PesquisarConta();
+                            pesquisarConta.setVisible(true);
+                        }else{
+                            JOptionPane.showMessageDialog(panelMenuPrincipal,"Você deve ter uma conta cadastrada", title, JOptionPane.WARNING_MESSAGE);
+                        }
                         break;
                     case 4:
                         //Depositar
-                        Depositar depositar = new Depositar();
-                        depositar.setVisible(true);
+                        if(checarCadConta()){
+                            Depositar depositar = new Depositar();
+                            depositar.setVisible(true);
+                        }else{
+                            JOptionPane.showMessageDialog(panelMenuPrincipal,"Você deve ter uma conta cadastrada", title, JOptionPane.WARNING_MESSAGE);
+                        }
                         break;
                     case 5:
                         //Debitar
-                        Debitar debitar = new Debitar();
-                        debitar.setVisible(true);
+                        if (checarCadConta()){
+                            Debitar debitar = new Debitar();
+                            debitar.setVisible(true);
+                        }else{
+                            JOptionPane.showMessageDialog(panelMenuPrincipal,"Você deve ter uma conta cadastrada", title, JOptionPane.WARNING_MESSAGE);
+                        }
+
                         break;
                     case 6:
                         //Transferir
-                        Transferencia transferencia = new Transferencia();
-                        transferencia.setVisible(true);
+                        if(checarCadConta()){
+                            Transferencia transferencia = new Transferencia();
+                            transferencia.setVisible(true);
+                        }else{
+                            JOptionPane.showMessageDialog(panelMenuPrincipal,"Você deve ter uma conta cadastrada", title, JOptionPane.WARNING_MESSAGE);
+                        }
                         break;
                     case 7:
                         //Remover Conta
-                        RemoverConta removerConta = new RemoverConta();
-                        removerConta.setVisible(true);
+                        if (checarCadConta()){
+                            RemoverConta removerConta = new RemoverConta();
+                            removerConta.setVisible(true);
+                        }else{
+                            JOptionPane.showMessageDialog(panelMenuPrincipal,"Você deve ter uma conta cadastrada", title, JOptionPane.WARNING_MESSAGE);
+                        }
                         break;
                     case 8:
                         //Sair
@@ -106,28 +125,14 @@ public class Menu extends JFrame {
 
     }
 
-    private static boolean checarCadConta(){
+    private boolean checarCadUser(){
         GerenciaCliente objGerenciaCli = GerenciaCliente.getInstance();
         return  !objGerenciaCli.getListaCliente().isEmpty();
     }
 
-    private static void testeCadUser(){
-        GerenciaCliente objGerencia = GerenciaCliente.getInstance();
-        Cliente cliente = new Cliente("joao", "123", "123");
-        Cliente cliente2 = new Cliente("Max", "321", "123");
-        Cliente cliente3 = new Cliente("Carminha", "432", "123");
-        objGerencia.adicionar(cliente);
-        objGerencia.adicionar(cliente2);
-        objGerencia.adicionar(cliente3);
-
-        Conta c = new ContaEspecial(1,cliente, LocalDate.now(),100, 200);
-        Conta c1 = new Conta(0,cliente2, LocalDate.now(),100);
-        Conta c2 = new Conta(2,cliente3, LocalDate.now(),0);
-
+    private boolean checarCadConta(){
         Banco banco = Banco.getInstance();
-        banco.adicionar(c1);
-        banco.adicionar(c);
-        banco.adicionar(c2);
+        return !banco.getListaConta().isEmpty();
     }
 
 }
