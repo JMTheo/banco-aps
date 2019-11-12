@@ -1,6 +1,5 @@
 package com.uam.poo.model;
 
-import javax.swing.*;
 import java.time.LocalDate;
 
 /**
