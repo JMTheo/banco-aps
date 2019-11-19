@@ -109,11 +109,12 @@ public class Menu extends JFrame {
 
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");  // This line gives Windows Theme
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());  // This line gives Windows Theme
 
         }
         catch (Exception e)
         {
+            JOptionPane.showMessageDialog(null, "Não foi possível colocar o tema padrao do sistema, trocando para um tema cross", "Erro ao definir design system", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
         initTela();
