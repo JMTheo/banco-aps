@@ -21,7 +21,19 @@ public class FabricaConta {
 
     private static ContaEspecial criarContaEspecial(){
         ContaEspecial c = new ContaEspecial();
-        double limite = Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o valor limite da conta", "Cadastro de conta", JOptionPane.QUESTION_MESSAGE));
+        double limite = 0;
+        boolean status = true;
+        String vlr;
+        while(status){
+            try{
+                vlr  = JOptionPane.showInputDialog(null, "Digite o valor limite da conta", "Cadastro de conta", JOptionPane.QUESTION_MESSAGE);
+                vlr = vlr.replace(',', '.');
+                limite = Double.parseDouble(vlr);
+                status = false;
+            }catch (NumberFormatException  e){
+                JOptionPane.showMessageDialog(null, "Digite um numero valido");
+            }
+        }
         c.setLimite(limite);
         return c;
     }

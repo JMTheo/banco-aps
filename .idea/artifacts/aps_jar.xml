@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="aps:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/aps_jar</output-path>
+    <root id="archive" name="aps.jar">
+      <element id="module-output" name="aps" />
+    </root>
+  </artifact>
+</component>

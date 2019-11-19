@@ -108,6 +108,14 @@ public class Menu extends JFrame {
     }
 
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");  // This line gives Windows Theme
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         initTela();
     }
 

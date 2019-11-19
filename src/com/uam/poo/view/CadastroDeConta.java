@@ -28,6 +28,7 @@ public class CadastroDeConta extends JFrame{
     private JRadioButton radioBtnEspecial;
     private JLabel lblSaldo;
     private JTextField fTxtSaldo;
+    private JLabel lblNomeCli;
 
     private int numeroRadio;
 
@@ -48,8 +49,9 @@ public class CadastroDeConta extends JFrame{
 
         for(Cliente c: gerenciaCliente.getListaCliente())
         {
-            cmbCliente.addItem(c.getNome());
+            cmbCliente.addItem(c.getCpf());
         }
+        lblNomeCli.setText(gerenciaCliente.getListaCliente().get(0).getNome());
 
         btnVoltar.addActionListener(new ActionListener() {
             @Override
@@ -95,6 +97,12 @@ public class CadastroDeConta extends JFrame{
                     JOptionPane.showMessageDialog(panelCadConta, "Conta cadastrada com sucesso", "Sucesso ao realizar o cadastro", JOptionPane.INFORMATION_MESSAGE);
                     fTxtSaldo.setText("");
                 }
+            }
+        });
+        cmbCliente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                lblNomeCli.setText(gerenciaCliente.getListaCliente().get(cmbCliente.getSelectedIndex()).getNome());
             }
         });
     }
