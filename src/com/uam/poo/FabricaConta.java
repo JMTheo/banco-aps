@@ -19,23 +19,27 @@ public class FabricaConta {
             return FabricaConta.criarConta();
     }
 
-    private static ContaEspecial criarContaEspecial(){
-        ContaEspecial c = new ContaEspecial();
+    private static Conta criarContaEspecial(){
+        Conta c = new ContaEspecial();
         double limite = 0;
         boolean status = true;
         String vlr;
-        while(status){
+        do {
             try{
                 vlr  = JOptionPane.showInputDialog(null, "Digite o valor limite da conta", "Cadastro de conta", JOptionPane.QUESTION_MESSAGE);
                 vlr = vlr.replace(',', '.');
                 limite = Double.parseDouble(vlr);
-                status = false;
+                if(limite <= 1000)
+                    status = false;
+                else
+                    JOptionPane.showMessageDialog(null, "O limite deve ser menor ou igual a R$ 1000,00");
+
             }catch (NumberFormatException  e){
                 JOptionPane.showMessageDialog(null, "Digite um numero valido");
             }
-        }
+        }while(status);
 
-        c.setLimite(limite);
+        ((ContaEspecial)c).setLimite(limite);
         return c;
     }
     private static Conta criarConta(){
