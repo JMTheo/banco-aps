@@ -16,11 +16,12 @@ import java.awt.event.ActionListener;
 
 public class RemoverConta extends JFrame {
     private JLabel lblTitle;
-    private JComboBox<String> cmbContas;
+    private JComboBox<Integer> cmbContas;
     private JButton btnVoltar;
     private JButton btnExcluir;
     private JPanel panelRemover;
     private JLabel lbllConta;
+    private JLabel lblNomeCli;
 
     public RemoverConta() {
         Banco banco = Banco.getInstance();
@@ -31,7 +32,8 @@ public class RemoverConta extends JFrame {
         setMinimumSize(new Dimension(400, 200)); //Definindo um tamanho inicial
         setLocationRelativeTo(rootPane); //Deixando para iniciar o programa centralizado
 
-        for (Conta objConta : banco.getListaConta()) cmbContas.addItem(objConta.getCliente().getNome());
+        for (Conta objConta : banco.getListaConta()) cmbContas.addItem(objConta.getNumero());
+        lblNomeCli.setText(banco.getConta(cmbContas.getSelectedIndex()).getCliente().getNome());
 
         btnVoltar.addActionListener(new ActionListener() {
             @Override
@@ -50,6 +52,12 @@ public class RemoverConta extends JFrame {
                 else
                     JOptionPane.showMessageDialog(panelRemover, "Não foi possível remover a conta, por favor saque tudo antes !", "Erro ao excluir conta", JOptionPane.ERROR_MESSAGE);
                 dispose();
+            }
+        });
+        cmbContas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                lblNomeCli.setText(banco.getConta(cmbContas.getSelectedIndex()).getCliente().getNome());
             }
         });
     }

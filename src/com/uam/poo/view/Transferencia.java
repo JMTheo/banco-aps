@@ -38,8 +38,9 @@ public class Transferencia extends JFrame {
             cmbContaOrig.addItem(conta.getNumero());
         }
 
+        cmbContaOrig.setSelectedItem(1);
         Conta contaInicialDest = banco.getConta(cmbContaDest.getSelectedIndex());
-        Conta contaInicialOrig = banco.getConta(cmbContaOrig.getSelectedIndex() + 1);
+        Conta contaInicialOrig = banco.getConta(cmbContaOrig.getSelectedIndex());
 
         lblNomeDest.setText(contaInicialDest.getCliente().getNome());
         lblNomeOrig.setText(contaInicialOrig.getCliente().getNome());
@@ -90,7 +91,7 @@ public class Transferencia extends JFrame {
             JOptionPane.showMessageDialog(panelTransferencia, "Dinheiro transferido com sucesso", "Sucesso ao realizar a transação", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         }else{
-            JOptionPane.showMessageDialog(panelTransferencia, "Saldo insuficiente para realizar a transferencia", "Erro ao realizar a transação", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(panelTransferencia, "Erro ao realizar transferência, verifique o saldo e/ou numero das contas", "Erro ao realizar a transação", JOptionPane.ERROR_MESSAGE);
         }
     }
 
