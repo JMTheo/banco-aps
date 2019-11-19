@@ -51,6 +51,7 @@ public class CadastroDeConta extends JFrame{
         {
             cmbCliente.addItem(c.getCpf());
         }
+
         lblNomeCli.setText(gerenciaCliente.getListaCliente().get(0).getNome());
 
         btnVoltar.addActionListener(new ActionListener() {
